@@ -1,0 +1,29 @@
+# Ignore build directories
+/Builds/
+/bin/
+/obj/
+
+# Ignore JUCE library files
+/JUCE/modules/
+
+# Ignore Visual Studio files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.user
+*.rsuser
+*.sdf
+*.ipch
+*.aps
+*.ncb
+*.opensdf
+*.opendb
+*.tlog
+*.log
+
+# Ignore Mac specific files
+*.DS_Store
+*.xcuserstate
+*.xcuserdata
+*.xcworkspace

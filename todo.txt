@@ -1,0 +1,19 @@
+todo for harm
+
+save state
+
+audio param tyoes?
+
+
+change pushback vectors to fixed vector of length 12
+remove ct, add ct, updatechord
+
+
+change list of button operations to a loop over the button vector
+
+
+
+
+
+
+
