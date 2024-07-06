@@ -1,6 +1,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "MidiProcessor.h"
 
 //==============================================================================
 HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(HarmonizerPluginAudioProcessor& p)
@@ -11,7 +12,7 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     setSize(400, 200);
 
     addAndMakeVisible(title);
-    title.setText("Harmosonizer", juce::dontSendNotification);
+    title.setText("Harmonizer", juce::dontSendNotification);
     title.setColour(juce::Label::textColourId, juce::Colours::cadetblue);
     title.setJustificationType(juce::Justification::centred);
     title.setFont(juce::Font(20.0f, juce::Font::bold));
@@ -29,6 +30,8 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     addAndMakeVisible(M6);
     addAndMakeVisible(m7);
     addAndMakeVisible(M7);
+
+    //m2.setToggleState(true, juce::dontSendNotification);
 
     m2.setButtonText("m2");
     M2.setButtonText("M2");

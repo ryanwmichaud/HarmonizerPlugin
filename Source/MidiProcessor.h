@@ -6,11 +6,11 @@ class MidiProcessor {
 
 public:
 
-    std::vector<int> chord = { 1,0,0,0,0,0,0,0,0,0,0,0 };
-    std::vector<std::vector<int>> inversions;
+    std::array<int, 12> chord = {1,0,0,0,0,0,0,0,0,0,0,0};
+    std::array<std::array<int, 12>, 12> inversions;
 
     int counter = 0;        //for cycling through inversions
-    int limit;              //num chords - same as num chord tones/possible inversions
+    int numCTs;              //num chords - same as num chord tones/possible inversions
     int lastOn;
 
 
@@ -37,8 +37,8 @@ public:
 
 
     void updateChord() { //populate inversions w top down inversions of given intervals
-        inversions.clear();
-        limit = 0;
+        numCTs = 0;
+        //we wont clear inversions. we'll overwrite what we need and don't look past that. 
 
         DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
 
@@ -48,8 +48,10 @@ public:
                 continue;
             }
             else {
-                limit += 1;                       //+1 for every inversion
-                std::vector<int> inversion = {};
+                numCTs += 1;                       //1 inversion for every true CT
+                std::array<int, 12>& inversion = inversions[numCTs-1];
+                DBG("array number "<< numCTs - 1<<":");
+                int place = 0;
                 for (int j = 0; j < chord.size(); j++) {
                     if (chord[j] == 0) {
                         continue;
@@ -60,12 +62,13 @@ public:
                             dist -= 12;
                             dist %= 12;
                         }
-                        inversion.push_back(dist);
+                        inversion[place] = dist;
+                        DBG("index " << place << " gets " << dist);
+                        place += 1;
 
                     }
                     
                 }
-                inversions.push_back(inversion);
             }
         }
         counter = 0;
@@ -91,7 +94,7 @@ public:
 
 
                 lastOn = currentMessage.getNoteNumber();
-                counter = (counter + 1) % limit;
+                counter = (counter + 1) % numCTs;
 
                 //monophonic - turn off all other notes when new note played
                 for (int i = 0; i <= 127; i++) {
@@ -113,23 +116,23 @@ public:
             }
 
         }
+      
 
     }
 
     void harmonize(juce::MidiMessage currentMessage, int samplePos) {
-        DBG("reached3 harm, counter: " << counter);
-        DBG(inversions[counter][0] << inversions[counter][1] << inversions[counter][2]);
-        processedBuffer.addEvent(currentMessage, samplePos);
+        DBG("reached harm, counter: " << counter << " inversion is: " << inversions[counter][0] << inversions[counter][1] << inversions[counter][2]);
+        
+        processedBuffer.addEvent(currentMessage, samplePos);  //not necessary rn
 
-        for (int i = 0; i < inversions[counter].size(); i++) {
+        for (int i = 0; i < numCTs; i++) {
+            DBG(inversions[counter][i]);
             auto transposedMessage = currentMessage;
             transposedMessage.setNoteNumber(currentMessage.getNoteNumber() + inversions[counter][i]);
             processedBuffer.addEvent(transposedMessage, samplePos);
         }
-
-
-
-
     }
+
+
 
 };
