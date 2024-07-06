@@ -23,7 +23,7 @@ Check it out if you're looking to explore some more modern sounding harmony for 
 ### How To Use
 
 This is a midi plugin and requires a DAW with midi routing capabilities. The plugin in loaded onto a midi track whose output is routed into a seperate midi track with your software instrument of choice. <br><br>
-See screenshots for an example setup in Ableton Live
+See screenshot `setup.png` for an example setup in Ableton Live
 
 
 
