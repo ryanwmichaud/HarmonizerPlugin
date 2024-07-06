@@ -60,6 +60,7 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
 
     MidiProcessor& getMidiProcessor();
+    std::array<int, 12> getChord();
 
 private:
     MidiProcessor midiProcessor;

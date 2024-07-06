@@ -145,6 +145,12 @@ MidiProcessor& HarmonizerPluginAudioProcessor::getMidiProcessor() {
     return ref;
 }
 
+std::array<int, 12> HarmonizerPluginAudioProcessor::getChord() {
+    return midiProcessor.getChord();
+}
+
+
+
 //==============================================================================
 bool HarmonizerPluginAudioProcessor::hasEditor() const
 {

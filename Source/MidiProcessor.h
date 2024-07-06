@@ -23,6 +23,11 @@ public:
         updateChord();
     }
 
+    std::array<int, 12> getChord() {
+        return chord;
+    }
+
+
     void removeChordTone(int interval) {
 
         chord[interval] = 0;

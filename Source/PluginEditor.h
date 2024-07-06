@@ -15,12 +15,14 @@ public:
 
     void paint(juce::Graphics&) override;
     void resized() override;
-    std::vector<juce::Button> buttons;
 
 
 private:
 
-    HarmonizerPluginAudioProcessor& audioProcessor;
+    //juce::OwnedArray<juce::ToggleButton> buttons;
+    //const juce::StringArray buttonNames{ "m2", "M2", "m3", "M3", "p4","tt", "p5", "m6", "M6", "m7", "M7" };
+
+
 
     juce::ToggleButton m2;
     juce::ToggleButton M2;
@@ -33,6 +35,12 @@ private:
     juce::ToggleButton M6;
     juce::ToggleButton m7;
     juce::ToggleButton M7;
+
+
+
+    HarmonizerPluginAudioProcessor& audioProcessor;
+
+    
 
     juce::Label title;
 

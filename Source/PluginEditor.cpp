@@ -17,8 +17,11 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     title.setJustificationType(juce::Justification::centred);
     title.setFont(juce::Font(20.0f, juce::Font::bold));
 
+    DBG("constructor");
 
+    std::array<int, 12> chord = audioProcessor.getChord();
 
+    
     addAndMakeVisible(m2);
     addAndMakeVisible(M2);
     addAndMakeVisible(m3);
@@ -31,7 +34,41 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     addAndMakeVisible(m7);
     addAndMakeVisible(M7);
 
-    //m2.setToggleState(true, juce::dontSendNotification);
+
+    if (chord[1] == 1) {
+        m2.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[2] == 1) {
+        M2.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[3] == 1) {
+        m3.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[4] == 1) {
+        M3.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[5] == 1) {
+        p4.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[6] == 1) {
+        tt.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[7] == 1) {
+        p5.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[8] == 1) {
+        m6.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[9] == 1) {
+        M6.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[10] == 1) {
+        m7.setToggleState(true, juce::dontSendNotification);
+    }
+    if (chord[11] == 1) {
+        M7.setToggleState(true, juce::dontSendNotification);
+    }
+
 
     m2.setButtonText("m2");
     M2.setButtonText("M2");
@@ -83,21 +120,14 @@ void HarmonizerPluginAudioProcessorEditor::buttonClicked(juce::Button* button)
         }
     }
 
-    DBG("name was " << name << ", interval is" << interval);
-
 
     MidiProcessor& midiProcessor = audioProcessor.getMidiProcessor();
-
     if (stateBool) {
         midiProcessor.addChordTone(interval);
     }
     else {
         midiProcessor.removeChordTone(interval);
     }
-
-
-
-
 }
 
 HarmonizerPluginAudioProcessorEditor::~HarmonizerPluginAudioProcessorEditor()
@@ -132,6 +162,19 @@ void HarmonizerPluginAudioProcessorEditor::resized()
 
     int boxSize = 25;
 
+    /*
+    for (int i = 0; i < 6; ++i) {
+        juce::ToggleButton* button = buttons[i];
+        button->setBounds(leftSection.removeFromTop(boxSize));
+    }
+    for (int i = 7; i < 11; ++i) {
+        juce::ToggleButton* button = buttons[i];
+        button->setBounds(r.removeFromTop(boxSize));
+    }
+    */
+
+
+
     m2.setBounds(leftSection.removeFromTop(boxSize));
     M2.setBounds(leftSection.removeFromTop(boxSize));
     m3.setBounds(leftSection.removeFromTop(boxSize));
@@ -144,7 +187,6 @@ void HarmonizerPluginAudioProcessorEditor::resized()
     M6.setBounds(r.removeFromTop(boxSize));
     m7.setBounds(r.removeFromTop(boxSize));
     M7.setBounds(r.removeFromTop(boxSize));
-
 
 
 
