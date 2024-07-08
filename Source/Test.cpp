@@ -1,22 +1,3 @@
-todo for harm
-
-
-
-
-unit tests
-better screenshots and demos
-
-save state w audio param types?
-change list of button operations to a loop over the button list
-button clicked checkboxes iterate o(n).  make it o(1) with hashing or list indexing somehow
-
-
-
-changed pushback dynamic vectors to array size 12 for cts in remove/add 
-changed inversions to array matrix size 12x12 build inversions
-
-
-
 #include "Test.h"
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
