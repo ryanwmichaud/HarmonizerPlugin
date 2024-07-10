@@ -5,7 +5,7 @@
   <MAINGROUP id="xWSurD" name="UnitTesting">
     <GROUP id="{8848D83E-B050-FE7A-ABC7-D85C288C5A3C}" name="Source">
       <FILE id="xiTA8p" name="Functions.h" compile="0" resource="0" file="Source/Functions.h"/>
-      <FILE id="FxvYJz" name="Test.h" compile="0" resource="0" file="Source/Test.h"/>
+      <FILE id="FxvYJz" name="TestProcessor.h" compile="0" resource="0" file="Source/TestProcessor.h"/>
       <FILE id="KR8lq2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
