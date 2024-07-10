@@ -1,12 +1,13 @@
 #pragma once
 #include "JuceHeader.h"
 
+
 class MidiProcessor {
 
 
 public:
 
-    std::array<int, 12> chord = {1,0,0,0,0,0,0,0,0,0,0,0};
+    std::array<int, 12> chord = { 1,0,0,0,0,0,0,0,0,0,0,0 };
     std::array<std::array<int, 12>, 12> inversions;
 
     int counter = 0;        //for cycling through inversions

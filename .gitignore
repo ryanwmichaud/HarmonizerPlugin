@@ -2,9 +2,11 @@
 /Builds/
 /bin/
 /obj/
+UnitTesting/Builds
 
 # Ignore JUCE library files
-/JUCE/modules/
+JuceLibraryCode/
+UnitTesting/JuceLibraryCode
 
 # Ignore Visual Studio files
 *.vcxproj

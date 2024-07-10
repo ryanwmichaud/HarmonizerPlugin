@@ -1,0 +1,62 @@
+#include  <JuceHeader.h>
+#include "Test.h" 
+#include "Functions.h"
+
+class Test : public juce::UnitTest
+{
+public:
+    Test() : UnitTest("Testing") {}
+
+   
+
+    void runTest() override
+    {
+        beginTest("addChordTone");
+        MidiProcessor mp;
+        mp.addChordTone(4);
+        mp.addChordTone(7);
+        expect(arrEq(mp.chord, {1,0,0,0,1,0,0,1,0,0,0,0}), "Expected: " + juce::String(chordToString({1,0,0,0,1,0,0,1,0,0,0,0})) + ", Actual: " + juce::String(chordToString(mp.chord)));
+        mp.addChordTone(7);
+        expect(arrEq(mp.chord, { 1,0,0,0,1,0,0,1,0,0,0,0 }), "Expected: " + juce::String(chordToString({ 1,0,0,0,1,0,0,1,0,0,0,0 })) + ", Actual: " + juce::String(chordToString(mp.chord)));
+        mp.addChordTone(11);
+        expect(arrEq(mp.chord, { 1,0,0,0,1,0,0,1,0,0,0,1 }), "Expected: " + juce::String(chordToString({ 1,0,0,0,1,0,0,1,0,0,0,1 })) + ", Actual: " + juce::String(chordToString(mp.chord)));
+
+        beginTest("removeChordTone");
+        mp.removeChordTone(11);
+        expect(arrEq({ 1,0,0,0,1,0,0,1,0,0,0,0 }, mp.chord), "Expected: " + juce::String(chordToString({ 1,0,0,0,1,0,0,1,0,0,0,0 })) + ", Actual: " + juce::String(chordToString(mp.chord)) );
+        mp.removeChordTone(11);
+        expect(arrEq({ 1,0,0,0,1,0,0,1,0,0,0,0 }, mp.chord), "Expected: " + juce::String(chordToString({ 1,0,0,0,1,0,0,1,0,0,0,0 })) + ", Actual: " + juce::String(chordToString(mp.chord)));
+
+        beginTest("inversions");
+        mp.updateChord();
+        expect(mp.numCTs == 3, "Expected: " + juce::String(3) + ", Actual: " + juce::String(mp.numCTs));
+
+        std::string actual = inversionToString(mp.inversions[0], mp.numCTs);
+        std::string expected = "[0, -8, -5]";
+        expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
+
+        actual = inversionToString(mp.inversions[1], mp.numCTs);
+        expected = "[-4, 0, -9]";
+        expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
+
+        actual = inversionToString(mp.inversions[2], mp.numCTs);
+        expected = "[-7, -3, 0]";
+        expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
+
+    }
+};
+
+// Creating a static instance will automatically add the instance to the array
+// returned by UnitTest::getAllTests(), so the test will be included when you call
+// UnitTestRunner::runAllTests()
+static Test test;
+
+
+
+
+int main(int argc, char** argv)
+{
+    juce::UnitTestRunner runner;
+    runner.runAllTests();
+    return 0;
+}
