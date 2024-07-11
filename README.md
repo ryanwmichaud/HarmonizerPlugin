@@ -17,7 +17,11 @@ Check it out if you're looking to explore some more modern sounding harmony for 
     - Eb,G,Ab,Bb,**C**  (AbMajor9)
     - E,F,G,A,**C**    (FMajor9)
     - Db,Eb,F,Ab,**C**  (DbMajor9)
-    
+
+### To Install:
+ - Download the .vst3 file for your operating system/archetecture from the Install folder
+ - Copy the .vst3 file into your VST folder
+
 ### To Develop/Build From Source:
 - Install the JUCE library and C++ development tools
 - Open the `HarmonizerPlugin.jucer` file in Projucer (part of the JUCE install) 
