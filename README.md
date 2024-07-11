@@ -28,7 +28,7 @@ Check it out if you're looking to explore some more modern sounding harmony for 
 - Use Projucer to export the project into your IDE of choice
 - Build the VST3 solution and copy the resulting `HarmonizerPlugin.vst3` file from your chosen output directory to your VST3 folder
 
-### To Run Tests:
+### To Run Unit Tests:
 - Ensure you have the JUCE library and C++ development tools installed
 - Open `UnitTesting/UnitTesting.jucer` in Projucer (you will need to build a seperate Console App to run the tests)
 - Use Projucer to export the UnitTesting project into your IDE of choice
