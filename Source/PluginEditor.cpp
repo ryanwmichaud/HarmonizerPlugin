@@ -121,12 +121,11 @@ void HarmonizerPluginAudioProcessorEditor::buttonClicked(juce::Button* button)
     }
 
 
-    MidiProcessor& midiProcessor = audioProcessor.getMidiProcessor();
     if (stateBool) {
-        midiProcessor.addChordTone(interval);
+        audioProcessor.addChordTone(interval);
     }
     else {
-        midiProcessor.removeChordTone(interval);
+        audioProcessor.removeChordTone(interval);
     }
 }
 

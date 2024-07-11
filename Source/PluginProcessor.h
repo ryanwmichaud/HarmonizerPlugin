@@ -59,8 +59,9 @@ public:
     void getStateInformation(juce::MemoryBlock& destData) override;
     void setStateInformation(const void* data, int sizeInBytes) override;
 
-    MidiProcessor& getMidiProcessor();
     std::array<int, 12> getChord();
+    void addChordTone(int interval);
+    void removeChordTone(int interval);
 
 private:
     MidiProcessor midiProcessor;

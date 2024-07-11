@@ -149,6 +149,14 @@ std::array<int, 12> HarmonizerPluginAudioProcessor::getChord() {
     return midiProcessor.getChord();
 }
 
+void HarmonizerPluginAudioProcessor::addChordTone(int interval) {
+    midiProcessor.addChordTone(interval);
+
+}
+
+void HarmonizerPluginAudioProcessor::removeChordTone(int interval) {
+    midiProcessor.removeChordTone(interval);
+}
 
 
 //==============================================================================
