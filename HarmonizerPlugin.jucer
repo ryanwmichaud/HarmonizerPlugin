@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="uBgH7e" name="HarmonizerPlugin" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
+              companyName="Ryan Michaud">
   <MAINGROUP id="IGVvrm" name="HarmonizerPlugin">
     <GROUP id="{1B36E10D-4FBD-996E-AE11-66D3204E0248}" name="Source">
       <FILE id="rgU5pI" name="PluginProcessor.cpp" compile="1" resource="0"

@@ -133,7 +133,7 @@ public:
 
         for (int i = 0; i < numCTs; i++) {
             DBG(inversions[counter][i]);
-            auto transposedMessage = currentMessage;
+            juce::MidiMessage transposedMessage = currentMessage;
             transposedMessage.setNoteNumber(currentMessage.getNoteNumber() + inversions[counter][i]);
             processedBuffer.addEvent(transposedMessage, samplePos);
         }

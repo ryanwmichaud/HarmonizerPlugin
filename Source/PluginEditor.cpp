@@ -12,10 +12,13 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     setSize(400, 200);
 
     addAndMakeVisible(title);
-    title.setText("Harmonizer", juce::dontSendNotification);
-    title.setColour(juce::Label::textColourId, juce::Colours::cadetblue);
+    title.setColour(juce::Label::textColourId, juce::Colours::wheat);
+    title.setText("d H a r m o n i z e", juce::dontSendNotification);
     title.setJustificationType(juce::Justification::centred);
-    title.setFont(juce::Font(20.0f, juce::Font::bold));
+
+    juce::FontOptions options = juce::FontOptions(20.0f,1);
+    juce::Font labelFont(options);
+    title.setFont(labelFont);
 
     DBG("constructor");
 
@@ -105,6 +108,8 @@ void HarmonizerPluginAudioProcessorEditor::buttonStateChanged(juce::Button* butt
     //hover over?
 }
 
+
+
 void HarmonizerPluginAudioProcessorEditor::buttonClicked(juce::Button* button)
 {
     bool stateBool = button->getToggleState();
@@ -134,19 +139,26 @@ HarmonizerPluginAudioProcessorEditor::~HarmonizerPluginAudioProcessorEditor()
 }
 
 //==============================================================================
+
+
 void HarmonizerPluginAudioProcessorEditor::paint(juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
+    
     /*
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
     g.setColour(juce::Colours::wheat);
     g.setFont (15.0f);
-    g.drawFittedText ("Dharmonizer", getLocalBounds(), juce::Justification::centred, 1);
-
+    g.drawFittedText ("d H a r m o n i z e", getLocalBounds(), juce::Justification::centred, 1);
     */
+    
+    
+   
 
 }
+
+
 
 void HarmonizerPluginAudioProcessorEditor::resized()
 {
