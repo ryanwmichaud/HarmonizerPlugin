@@ -140,10 +140,6 @@ void HarmonizerPluginAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
 
 }
 
-MidiProcessor& HarmonizerPluginAudioProcessor::getMidiProcessor() {
-    MidiProcessor& ref = midiProcessor;
-    return ref;
-}
 
 std::array<int, 12> HarmonizerPluginAudioProcessor::getChord() {
     return midiProcessor.getChord();
