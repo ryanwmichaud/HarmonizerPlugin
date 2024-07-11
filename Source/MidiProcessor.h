@@ -91,10 +91,14 @@ public:
 
     void processMidiInput(const juce::MidiBuffer& midiMessages) {
 
-        juce::MidiBuffer::Iterator it(midiMessages);    //use this iterator to iterate through midi events in the block
-        juce::MidiMessage currentMessage;
-        int samplePos;                                  //to store the sample position from the iterator
-        while (it.getNextEvent(currentMessage, samplePos)) {
+        //juce::MidiBuffer::Iterator it(midiMessages);    //use this iterator to iterate through midi events in the block
+        //juce::MidiMessage currentMessage;
+        //int samplePos;                                  //to store the sample position from the iterator
+        //while (it.getNextEvent(currentMessage, samplePos)) {
+
+        for (const auto metadata : midiMessages) {
+            const auto& currentMessage = metadata.getMessage();
+            int samplePos = metadata.samplePosition;
 
             if (currentMessage.isNoteOn()) {
 
