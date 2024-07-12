@@ -3,56 +3,13 @@ todo for harm
 
 
 
-unit tests
 better screenshots and demos
 
-save state w audio param types?
-change list of button operations to a loop over the button list
-button clicked checkboxes iterate o(n).  make it o(1) with hashing or list indexing somehow
-
-
-
-changed pushback dynamic vectors to array size 12 for cts in remove/add 
-changed inversions to array matrix size 12x12 build inversions
-
-
-
-#include "Test.h"
-#include "PluginProcessor.h"
-#include "PluginEditor.h"
-
-
-class Test : public juce::UnitTest
-{
-public:
-    Test() : UnitTest("Testing") {}
-
-    void runTest() override
-    {
-        beginTest("Processor");
-
-        HarmonizerPluginAudioProcessor processor;
-        expectEquals(processor.getNumPrograms(),1);
-
-        beginTest("Editor");
-
-        HarmonizerPluginAudioProcessorEditor editor(processor);
-        expect(editor.getWidth() > 0);
-
-    }
-};
-
-// Creating a static instance will automatically add the instance to the array
-// returned by UnitTest::getAllTests(), so the test will be included when you call
-// UnitTestRunner::runAllTests()
-static Test test;
+use juce audio param bool types
+ list of button 
+button clicked checkboxes iterate linear make it  with hashing or list indexing 
 
 
 
 
-int main(int argc, char** argv)
-{
-    juce::UnitTestRunner runner;
-    runner.runAllTests();
-    return 0;
-}
+
