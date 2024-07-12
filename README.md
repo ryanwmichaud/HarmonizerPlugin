@@ -1,6 +1,6 @@
 # Harmonizer Plugin
 
-Explore non functional constant structure harmony one note at a time! 
+Explore non functional constant structure harmony one note at a time
 
 ## Description
 
