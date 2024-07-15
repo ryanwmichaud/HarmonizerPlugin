@@ -107,39 +107,53 @@ void HarmonizerPluginAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
-    auto r = getBounds();
-    title.setBounds(r.removeFromTop(30));
-    r.removeFromLeft(20);
+    auto rightSection = getBounds();
+    title.setBounds(rightSection.removeFromTop(30));
+    rightSection.removeFromTop(20);
 
-    auto leftSection = r.removeFromLeft(getWidth() / 2);
+    rightSection.removeFromLeft(getWidth() / 5);
+    auto leftSection = rightSection.removeFromLeft(getWidth() / 5);
+    rightSection.removeFromLeft(getWidth() / 5);
+    rightSection.removeFromRight(getWidth() / 5);
 
-    int boxSize = 25;
+
+    int boxHeight = 15;
+    int space = 6;
 
     /*
     for (int i = 0; i < 6; ++i) {
         juce::ToggleButton* button = buttons[i];
-        button->setBounds(leftSection.removeFromTop(boxSize));
+        button->setBounds(leftSection.removeFromTop(boxHeight));
     }
     for (int i = 7; i < 11; ++i) {
         juce::ToggleButton* button = buttons[i];
-        button->setBounds(r.removeFromTop(boxSize));
+        button->setBounds(r.removeFromTop(boxHeight));
     }
     */
 
 
 
-    m2.setBounds(leftSection.removeFromTop(boxSize));
-    M2.setBounds(leftSection.removeFromTop(boxSize));
-    m3.setBounds(leftSection.removeFromTop(boxSize));
-    M3.setBounds(leftSection.removeFromTop(boxSize));
-    p4.setBounds(leftSection.removeFromTop(boxSize));
-    tt.setBounds(leftSection.removeFromTop(boxSize));
+    m2.setBounds(leftSection.removeFromTop(boxHeight));
+    leftSection.removeFromTop(space);
+    M2.setBounds(leftSection.removeFromTop(boxHeight));
+    leftSection.removeFromTop(space);
+    m3.setBounds(leftSection.removeFromTop(boxHeight));
+    leftSection.removeFromTop(space);
+    M3.setBounds(leftSection.removeFromTop(boxHeight));
+    leftSection.removeFromTop(space);
+    p4.setBounds(leftSection.removeFromTop(boxHeight));
+    leftSection.removeFromTop(space);
+    tt.setBounds(leftSection.removeFromTop(boxHeight));
 
-    p5.setBounds(r.removeFromTop(boxSize));
-    m6.setBounds(r.removeFromTop(boxSize));
-    M6.setBounds(r.removeFromTop(boxSize));
-    m7.setBounds(r.removeFromTop(boxSize));
-    M7.setBounds(r.removeFromTop(boxSize));
+    p5.setBounds(rightSection.removeFromTop(boxHeight));
+    rightSection.removeFromTop(space);
+    m6.setBounds(rightSection.removeFromTop(boxHeight));
+    rightSection.removeFromTop(space);
+    M6.setBounds(rightSection.removeFromTop(boxHeight));
+    rightSection.removeFromTop(space);
+    m7.setBounds(rightSection.removeFromTop(boxHeight));
+    rightSection.removeFromTop(space);
+    M7.setBounds(rightSection.removeFromTop(boxHeight));
 
 
 
