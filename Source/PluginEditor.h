@@ -3,6 +3,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "CustomLookAndFeel.h"
 
 
 class HarmonizerPluginAudioProcessorEditor : public juce::AudioProcessorEditor,
@@ -22,7 +23,7 @@ private:
     //juce::OwnedArray<juce::ToggleButton> buttons;
     //const juce::StringArray buttonNames{ "m2", "M2", "m3", "M3", "p4","tt", "p5", "m6", "M6", "m7", "M7" };
 
-
+    juce::Label title;
 
     juce::ToggleButton m2;
     juce::ToggleButton M2;
@@ -38,11 +39,10 @@ private:
 
 
 
+    void HarmonizerPluginAudioProcessorEditor::initializeButton(juce::ToggleButton& button, const juce::String& buttonText, bool initialState);
     HarmonizerPluginAudioProcessor& audioProcessor;
 
-    
-
-    juce::Label title;
+    CustomLookAndFeel customLookAndFeel;
 
     void buttonClicked(juce::Button* button) override;
     void buttonStateChanged(juce::Button* button) override;

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="uBgH7e" name="HarmonizerPlugin" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
+<JUCERPROJECT id="uBgH7e" name="Harmonizer Plugin" projectType="audioplug"
+              useAppConfig="0" addUsingNamespaceToJuceHeader="0" displaySplashScreen="1"
+              jucerFormatVersion="1" pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
               companyName="Ryan Michaud">
-  <MAINGROUP id="IGVvrm" name="HarmonizerPlugin">
+  <MAINGROUP id="IGVvrm" name="Harmonizer Plugin">
     <GROUP id="{1B36E10D-4FBD-996E-AE11-66D3204E0248}" name="Source">
+      <FILE id="cMSWoQ" name="CustomLookAndFeel.h" compile="0" resource="0"
+            file="Source/CustomLookAndFeel.h"/>
+      <FILE id="PA1qEE" name="CustomLookAndFeel.cpp" compile="1" resource="0"
+            file="Source/CustomLookAndFeel.cpp"/>
       <FILE id="rgU5pI" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="Lg7pXQ" name="MidiProcessor.h" compile="0" resource="0" file="Source/MidiProcessor.h"/>
@@ -20,7 +24,7 @@
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="HarmonizerPlugin"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="dHarmonize"/>
         <CONFIGURATION isDebug="0" name="Release" targetName="HarmonizerPlugin"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

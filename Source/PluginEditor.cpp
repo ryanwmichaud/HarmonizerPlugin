@@ -3,6 +3,7 @@
 #include "PluginEditor.h"
 #include "MidiProcessor.h"
 
+
 //==============================================================================
 HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(HarmonizerPluginAudioProcessor& p)
     : AudioProcessorEditor(&p), audioProcessor(p)
@@ -10,102 +11,54 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize(400, 200);
+    
+    setLookAndFeel(&customLookAndFeel);
+
 
     addAndMakeVisible(title);
-    title.setColour(juce::Label::textColourId, juce::Colours::wheat);
     title.setText("d H a r m o n i z e", juce::dontSendNotification);
     title.setJustificationType(juce::Justification::centred);
-
     juce::FontOptions options = juce::FontOptions(20.0f,1);
-    juce::Font labelFont(options);
-    title.setFont(labelFont);
+    juce::Font titleFont(options);
+    title.setFont(titleFont);
 
     DBG("constructor");
 
     std::array<int, 12> chord = audioProcessor.getChord();
 
-    
-    addAndMakeVisible(m2);
-    addAndMakeVisible(M2);
-    addAndMakeVisible(m3);
-    addAndMakeVisible(M3);
-    addAndMakeVisible(p4);
-    addAndMakeVisible(tt);
-    addAndMakeVisible(p5);
-    addAndMakeVisible(m6);
-    addAndMakeVisible(M6);
-    addAndMakeVisible(m7);
-    addAndMakeVisible(M7);
+    initializeButton(m2, "m2", chord[1]);
+    initializeButton(M2, "M2", chord[2]);
+    initializeButton(m3, "m3", chord[3]);
+    initializeButton(M3, "M3", chord[4]);
+    initializeButton(p4, "p4", chord[5]);
+    initializeButton(tt, "tt", chord[6]);
+    initializeButton(p5, "p5", chord[7]);
+    initializeButton(m6, "m6", chord[8]);
+    initializeButton(M6, "M6", chord[9]);
+    initializeButton(m7, "m7", chord[10]);
+    initializeButton(M7, "M7", chord[11]);
 
+}
 
-    if (chord[1] == 1) {
-        m2.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[2] == 1) {
-        M2.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[3] == 1) {
-        m3.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[4] == 1) {
-        M3.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[5] == 1) {
-        p4.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[6] == 1) {
-        tt.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[7] == 1) {
-        p5.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[8] == 1) {
-        m6.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[9] == 1) {
-        M6.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[10] == 1) {
-        m7.setToggleState(true, juce::dontSendNotification);
-    }
-    if (chord[11] == 1) {
-        M7.setToggleState(true, juce::dontSendNotification);
-    }
-
-
-    m2.setButtonText("m2");
-    M2.setButtonText("M2");
-    m3.setButtonText("m3");
-    M3.setButtonText("M3");
-    p4.setButtonText("p4");
-    tt.setButtonText("tt");
-    p5.setButtonText("p5");
-    m6.setButtonText("m6");
-    M6.setButtonText("M6");
-    m7.setButtonText("m7");
-    M7.setButtonText("M7");
-
-
-    m2.addListener(this);
-    M2.addListener(this);
-    m3.addListener(this);
-    M3.addListener(this);
-    p4.addListener(this);
-    tt.addListener(this);
-    p5.addListener(this);
-    m6.addListener(this);
-    M6.addListener(this);
-    m7.addListener(this);
-    M7.addListener(this);
+HarmonizerPluginAudioProcessorEditor::~HarmonizerPluginAudioProcessorEditor()
+{
+    setLookAndFeel(nullptr);
+}
 
 
 
-
+void HarmonizerPluginAudioProcessorEditor::initializeButton(juce::ToggleButton& button, const juce::String& buttonText, bool initialState)
+{
+    addAndMakeVisible(button);
+    button.setButtonText(buttonText);
+    //customLookAndFeel.changeToggleButtonWidthToFitText(button);    
+    button.setToggleState(initialState, juce::dontSendNotification);
+    button.onClick = [this, &button] { buttonClicked(&button); };
 }
 
 void HarmonizerPluginAudioProcessorEditor::buttonStateChanged(juce::Button* button)
 {
-    //hover over?
+    DBG("statecahnged");
 }
 
 
@@ -134,27 +87,16 @@ void HarmonizerPluginAudioProcessorEditor::buttonClicked(juce::Button* button)
     }
 }
 
-HarmonizerPluginAudioProcessorEditor::~HarmonizerPluginAudioProcessorEditor()
-{
-}
+
 
 //==============================================================================
 
 
 void HarmonizerPluginAudioProcessorEditor::paint(juce::Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    
-    /*
+
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
-    g.setColour(juce::Colours::wheat);
-    g.setFont (15.0f);
-    g.drawFittedText ("d H a r m o n i z e", getLocalBounds(), juce::Justification::centred, 1);
-    */
-    
-    
-   
 
 }
 
