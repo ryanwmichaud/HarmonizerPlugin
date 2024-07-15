@@ -25,6 +25,7 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     DBG("constructor");
 
     std::array<int, 12> chord = audioProcessor.getChord();
+    bool cycle = audioProcessor.isCycleOn();
 
     initializeButton(m2, "m2", chord[1]);
     initializeButton(M2, "M2", chord[2]);
@@ -38,6 +39,12 @@ HarmonizerPluginAudioProcessorEditor::HarmonizerPluginAudioProcessorEditor(Harmo
     initializeButton(m7, "m7", chord[10]);
     initializeButton(M7, "M7", chord[11]);
 
+    addAndMakeVisible(cycleButton);
+    cycleButton.setButtonText("cycle");
+    cycleButton.setToggleState(cycle, juce::dontSendNotification);
+    cycleButton.onClick = [this] {
+        cycleButtonClicked(&cycleButton);
+    };
 }
 
 HarmonizerPluginAudioProcessorEditor::~HarmonizerPluginAudioProcessorEditor()
@@ -45,6 +52,9 @@ HarmonizerPluginAudioProcessorEditor::~HarmonizerPluginAudioProcessorEditor()
     setLookAndFeel(nullptr);
 }
 
+void HarmonizerPluginAudioProcessorEditor::cycleButtonClicked(juce::Button* button) {
+    audioProcessor.toggleCycle();
+}
 
 
 void HarmonizerPluginAudioProcessorEditor::initializeButton(juce::ToggleButton& button, const juce::String& buttonText, bool initialState)
@@ -89,8 +99,6 @@ void HarmonizerPluginAudioProcessorEditor::buttonClicked(juce::Button* button)
 
 
 
-//==============================================================================
-
 
 void HarmonizerPluginAudioProcessorEditor::paint(juce::Graphics& g)
 {
@@ -113,12 +121,15 @@ void HarmonizerPluginAudioProcessorEditor::resized()
 
     int buttonHeight = 15;
     int buttonWidth = 30;
+    int cycleButtonWidth = 50;
     int vSpace = 10;
 
     rightSection.removeFromLeft(getWidth() / 10);
     auto leftSection = rightSection.removeFromLeft(buttonWidth);
     rightSection.removeFromLeft(getWidth() / 10);
     auto secondSection = rightSection.removeFromLeft(buttonWidth);
+    rightSection.removeFromLeft(getWidth() / 10);
+    auto thirdSection = rightSection.removeFromLeft(cycleButtonWidth);
          
 
     
@@ -157,6 +168,10 @@ void HarmonizerPluginAudioProcessorEditor::resized()
     m7.setBounds(secondSection.removeFromTop(buttonHeight));
     secondSection.removeFromTop(vSpace);
     M7.setBounds(secondSection.removeFromTop(buttonHeight));
+
+    cycleButton.setBounds(thirdSection.removeFromTop(buttonHeight));
+
+
 
 
 

@@ -37,6 +37,8 @@ private:
     juce::ToggleButton m7;
     juce::ToggleButton M7;
 
+    juce::ToggleButton cycleButton;
+
 
 
     void HarmonizerPluginAudioProcessorEditor::initializeButton(juce::ToggleButton& button, const juce::String& buttonText, bool initialState);
@@ -45,6 +47,8 @@ private:
     CustomLookAndFeel customLookAndFeel;
 
     void buttonClicked(juce::Button* button) override;
+    void cycleButtonClicked(juce::Button* button);
+
     void buttonStateChanged(juce::Button* button) override;
 
 

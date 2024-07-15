@@ -62,6 +62,8 @@ public:
     std::array<int, 12> getChord();
     void addChordTone(int interval);
     void removeChordTone(int interval);
+    void toggleCycle();
+    bool isCycleOn();
 
 private:
     MidiProcessor midiProcessor;

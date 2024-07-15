@@ -15,6 +15,8 @@ public:
     int numCTs;              //num chords - same as num chord tones/possible inversions
     int lastOn;
 
+    bool cycle = true;
+
 
     juce::MidiBuffer processedBuffer;  //holds temporary altered notes at any given time before swapping
 
@@ -42,6 +44,22 @@ public:
         updateChord();
 
     }
+
+    void toggleCycle() {
+        if (cycle) {
+            cycle = false;
+        }
+        else {
+            cycle = true;
+        }
+        DBG("cycle changed to: ", cycle);
+    }
+
+    bool isCycleOn() {
+        DBG("cycle: ", cycle);
+        return cycle;
+    }
+
 
 
     void updateChord() { //populate inversions w top down inversions of given intervals
@@ -101,7 +119,10 @@ public:
             if (currentMessage.isNoteOn()) {
 
                 lastOn = currentMessage.getNoteNumber();
-                counter = (counter + 1) % numCTs;
+                if (cycle) {
+                    counter = (counter + 1) % numCTs;
+                }
+                
 
                 //monophonic - turn off active notes when new note played
                 for (int i = 0; i < 12; i++) {

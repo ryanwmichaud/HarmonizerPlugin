@@ -153,7 +153,12 @@ void HarmonizerPluginAudioProcessor::addChordTone(int interval) {
 void HarmonizerPluginAudioProcessor::removeChordTone(int interval) {
     midiProcessor.removeChordTone(interval);
 }
-
+void HarmonizerPluginAudioProcessor::toggleCycle() {
+    midiProcessor.toggleCycle();
+}
+bool HarmonizerPluginAudioProcessor::isCycleOn() {
+    return midiProcessor.isCycleOn();
+}
 
 //==============================================================================
 bool HarmonizerPluginAudioProcessor::hasEditor() const
