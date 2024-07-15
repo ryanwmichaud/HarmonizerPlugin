@@ -1,12 +1,9 @@
-todo for harm
-
-
 
 
 better screenshots and demos
 
 use juce audio param bool types
- list of button 
+list of button 
 button clicked checkboxes iterate linear make it  with hashing or list indexing 
 
 
