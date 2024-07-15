@@ -9,7 +9,7 @@ CustomLookAndFeel::CustomLookAndFeel()
 
 void CustomLookAndFeel::drawToggleButton (juce::Graphics& g, juce::ToggleButton& button, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown){
     auto fontSize = 15.0f;
-    float cornerSize = 10.0f; 
+    float cornerSize = 5.0f; 
     float borderSize = 2.0f;
 
     g.setColour(button.findColour(juce::ToggleButton::textColourId));
@@ -28,6 +28,8 @@ void CustomLookAndFeel::drawToggleButton (juce::Graphics& g, juce::ToggleButton&
         g.fillRoundedRectangle(textBounds.toFloat(), cornerSize);
         g.setColour(juce::Colours::black);
         g.drawText(button.getButtonText(), textBounds, juce::Justification::centred, 10);
+        g.setColour(juce::Colours::grey);
+        g.drawRoundedRectangle(textBounds.toFloat(), cornerSize, borderSize);
     }
 
     else {
@@ -40,10 +42,8 @@ void CustomLookAndFeel::drawToggleButton (juce::Graphics& g, juce::ToggleButton&
     if (shouldDrawButtonAsHighlighted)
     {
         // while hovered 
-        g.setColour(juce::Colours::black);
+        g.setColour(juce::Colours::white);
         g.drawRoundedRectangle(textBounds.toFloat(), cornerSize, borderSize);
-        g.setColour(juce::Colours::grey);
-        g.drawText(button.getButtonText(), textBounds, juce::Justification::centred, 10);
 
 
     }
@@ -51,8 +51,13 @@ void CustomLookAndFeel::drawToggleButton (juce::Graphics& g, juce::ToggleButton&
     if (shouldDrawButtonAsDown)
     {
         // while clicking
-        g.setColour(juce::Colours::white);
+        g.setColour(juce::Colours::grey);
         g.drawRoundedRectangle(textBounds.toFloat(), cornerSize, borderSize);
+        if (button.getToggleState()) {
+            g.setColour(juce::Colours::black);
+        }
+        g.drawText(button.getButtonText(), textBounds, juce::Justification::centred, 10);
+
     }
 
 }

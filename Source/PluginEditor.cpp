@@ -109,51 +109,54 @@ void HarmonizerPluginAudioProcessorEditor::resized()
 
     auto rightSection = getBounds();
     title.setBounds(rightSection.removeFromTop(30));
-    rightSection.removeFromTop(20);
+    rightSection.removeFromTop(10);
 
-    rightSection.removeFromLeft(getWidth() / 5);
-    auto leftSection = rightSection.removeFromLeft(getWidth() / 5);
-    rightSection.removeFromLeft(getWidth() / 5);
-    rightSection.removeFromRight(getWidth() / 5);
+    int buttonHeight = 15;
+    int buttonWidth = 30;
+    int vSpace = 10;
 
+    rightSection.removeFromLeft(getWidth() / 10);
+    auto leftSection = rightSection.removeFromLeft(buttonWidth);
+    rightSection.removeFromLeft(getWidth() / 10);
+    auto secondSection = rightSection.removeFromLeft(buttonWidth);
+         
 
-    int boxHeight = 15;
-    int space = 6;
+    
 
     /*
     for (int i = 0; i < 6; ++i) {
         juce::ToggleButton* button = buttons[i];
-        button->setBounds(leftSection.removeFromTop(boxHeight));
+        button->setBounds(leftSection.removeFromTop(buttonHeight));
     }
     for (int i = 7; i < 11; ++i) {
         juce::ToggleButton* button = buttons[i];
-        button->setBounds(r.removeFromTop(boxHeight));
+        button->setBounds(r.removeFromTop(buttonHeight));
     }
     */
 
 
 
-    m2.setBounds(leftSection.removeFromTop(boxHeight));
-    leftSection.removeFromTop(space);
-    M2.setBounds(leftSection.removeFromTop(boxHeight));
-    leftSection.removeFromTop(space);
-    m3.setBounds(leftSection.removeFromTop(boxHeight));
-    leftSection.removeFromTop(space);
-    M3.setBounds(leftSection.removeFromTop(boxHeight));
-    leftSection.removeFromTop(space);
-    p4.setBounds(leftSection.removeFromTop(boxHeight));
-    leftSection.removeFromTop(space);
-    tt.setBounds(leftSection.removeFromTop(boxHeight));
+    m2.setBounds(leftSection.removeFromTop(buttonHeight));
+    leftSection.removeFromTop(vSpace);
+    M2.setBounds(leftSection.removeFromTop(buttonHeight));
+    leftSection.removeFromTop(vSpace);
+    m3.setBounds(leftSection.removeFromTop(buttonHeight));
+    leftSection.removeFromTop(vSpace);
+    M3.setBounds(leftSection.removeFromTop(buttonHeight));
+    leftSection.removeFromTop(vSpace);
+    p4.setBounds(leftSection.removeFromTop(buttonHeight));
+    leftSection.removeFromTop(vSpace);
+    tt.setBounds(leftSection.removeFromTop(buttonHeight));
 
-    p5.setBounds(rightSection.removeFromTop(boxHeight));
-    rightSection.removeFromTop(space);
-    m6.setBounds(rightSection.removeFromTop(boxHeight));
-    rightSection.removeFromTop(space);
-    M6.setBounds(rightSection.removeFromTop(boxHeight));
-    rightSection.removeFromTop(space);
-    m7.setBounds(rightSection.removeFromTop(boxHeight));
-    rightSection.removeFromTop(space);
-    M7.setBounds(rightSection.removeFromTop(boxHeight));
+    p5.setBounds(secondSection.removeFromTop(buttonHeight));
+    secondSection.removeFromTop(vSpace);
+    m6.setBounds(secondSection.removeFromTop(buttonHeight));
+    secondSection.removeFromTop(vSpace);
+    M6.setBounds(secondSection.removeFromTop(buttonHeight));
+    secondSection.removeFromTop(vSpace);
+    m7.setBounds(secondSection.removeFromTop(buttonHeight));
+    secondSection.removeFromTop(vSpace);
+    M7.setBounds(secondSection.removeFromTop(buttonHeight));
 
 
 
