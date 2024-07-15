@@ -23,7 +23,7 @@ Check it out if you're looking to explore some more modern sounding harmony for 
  - Copy the .vst3 file into your VST folder
 
 ### To Develop/Build From Source:
-- Install the JUCE library and C++ development tools
+- Install the JUCE library, C++ development tools, and this repository
 - Open the `HarmonizerPlugin.jucer` file in Projucer (part of the JUCE install) 
 - Use Projucer to export the project into your IDE of choice
 - Build the VST3 solution and copy the resulting `HarmonizerPlugin.vst3` file from your chosen output directory to your VST3 folder
