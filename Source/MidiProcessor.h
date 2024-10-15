@@ -62,6 +62,8 @@ public:
 
 
 
+    /*
+    
     void updateChord() { //populate inversions w top down inversions of given intervals
         numCTs = 0;
 
@@ -70,7 +72,7 @@ public:
         //DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
 
 
-        for (int i = 0; i < chord.size(); i++) { //one inversion with each top note
+        for (int i = 0; i < 12; i++) { //one inversion with each top note
             if (chord[i] == 0) {
                 continue;
             }
@@ -79,7 +81,7 @@ public:
                 std::array<int, 12>& inversion = inversions[numCTs-1];
                 //DBG("array number "<< numCTs - 1<<":");
                 int place = 0;
-                for (int j = 0; j < chord.size(); j++) {
+                for (int j = 0; j < 12; j++) {
                     if (chord[j] == 0) {
                         continue;
                     }
@@ -99,6 +101,67 @@ public:
             }
         }
         counter = 0;
+
+    }
+
+    */
+
+    void updateChord() { //populate inversions w top down inversions of given intervals
+
+    //we wont clear inversions. we'll overwrite what we need and don't look past that. 
+
+        DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
+        std::array<int, 12> rowCounters = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        std::array<int, 12> numDistancesFound = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        int lastRowStarted = -1;
+
+
+        for (int i = 33; i >= 0; i--) { //step backwards looking for 1s
+
+
+            DBG("looking at index " << i);
+
+            if (chord[i % 12] == 0) {
+
+                DBG("got a 0");
+
+                for (int j = 0; j < lastRowStarted + 1; j++) {  //incr each of the live counters
+                    rowCounters[j] = rowCounters[j] + 1;
+                    DBG("incremented counter " << j << " to " << rowCounters[j]);
+                }
+            }
+            else {                //when we get a 1
+                DBG("got a 1");
+
+                lastRowStarted += 1;      //start a counter
+                DBG("started counter at" << lastRowStarted << ". lastRowStarted is now " << lastRowStarted);
+
+                for (int j = 0; j < lastRowStarted + 1; j++) {  //incr and add a distance for each of the live counters
+                    rowCounters[j] = rowCounters[j] + 1;
+                    DBG("incremented counter " << j << " to " << rowCounters[j]);
+                    inversions[j][numDistancesFound[j]] = rowCounters[j];
+                    DBG("added row " << j << " index " << numDistancesFound[j] << " value of " << rowCounters[j]);
+                    numDistancesFound[j] = numDistancesFound[j] + 1;
+                }
+
+                DBG(inversions[0][0] << inversions[0][1] << inversions[0][2]);
+                DBG(inversions[1][0] << inversions[1][1] << inversions[1][2]);
+                DBG(inversions[2][0] << inversions[2][1] << inversions[2][2]);
+            }
+
+
+            DBG("done if numdistancesfound at " << numCTs << " is " << numCTs << ". it is " << numDistancesFound[numCTs]);
+            if (numDistancesFound[numCTs] == numCTs) {
+                DBG("done and resetting");
+                rowCounters = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+                numDistancesFound = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                lastRowStarted = -1;
+            }
+
+        }
+
+        counter = 0;
+
 
     }
 
@@ -132,7 +195,6 @@ public:
                     }
                     DBG("turned off " << activeNoteNums[i]);
                 }
-                
                 
 
                 harmonize(currentMessage, samplePos);

@@ -159,6 +159,7 @@ void HarmonizerPluginAudioProcessorEditor::resized()
     leftSection.removeFromTop(vSpace);
     tt.setBounds(leftSection.removeFromTop(buttonHeight));
 
+    secondSection.removeFromTop((buttonHeight+vSpace)/2);
     p5.setBounds(secondSection.removeFromTop(buttonHeight));
     secondSection.removeFromTop(vSpace);
     m6.setBounds(secondSection.removeFromTop(buttonHeight));
