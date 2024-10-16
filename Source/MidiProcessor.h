@@ -60,10 +60,11 @@ public:
         return cycle;
     }
 
-
-
     /*
-    
+
+
+ 
+    //v1
     void updateChord() { //populate inversions w top down inversions of given intervals
         numCTs = 0;
 
@@ -104,8 +105,7 @@ public:
 
     }
 
-    
-
+    //v2
     void updateChord() { //populate inversions w top down inversions of given intervals
 
     //we wont clear inversions. we'll overwrite what we need and don't look past that. 
@@ -165,9 +165,12 @@ public:
 
 
     }
+
     */
 
-    void updateChord() { //populate inversions w top down inversions of given intervals
+    //v3
+
+        void updateChord() { //populate inversions w top down inversions of given intervals
 
         DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
 
@@ -208,6 +211,9 @@ public:
         }
 
     }
+    
+
+
 
 
     void process(juce::MidiBuffer& midiMessages) {      //pass in midi buffer by reference so we can change it in memory
