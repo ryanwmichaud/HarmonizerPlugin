@@ -53,7 +53,7 @@ public:
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
 
-        /*
+        
         
         beginTest("update to bigger chord");
         mp.addChordTone(2);
@@ -103,7 +103,7 @@ public:
         expected = "[-7, 0]";
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
-        */
+        
 
 
     }

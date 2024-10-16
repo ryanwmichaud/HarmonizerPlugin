@@ -9,21 +9,21 @@ class MidiProcessor {
 public:
 
     std::array<int, 12> chord = { 1,0,0,0,0,0,0,0,0,0,0,0 };
-    std::array<std::array<int, 12>, 12> inversions = { {
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+    std::array<std::array<int, 12>, 12> inversions; /*= { {
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
+        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13}
     } };
-
+    */
     int counter = 0;        //for cycling through inversions
     int numCTs = 1;              //num chords - same as num chord tones/possible inversions
     int lastOn;
@@ -47,6 +47,8 @@ public:
 
 
     void removeChordTone(int interval) {
+        DBG("removing");
+
 
         if (chord[interval] == 1) {
             chord[interval] = 0;
@@ -57,6 +59,7 @@ public:
     }
     void addChordTone(int interval) {
 
+        DBG("adding");
 
         if (chord[interval] == 0) {
             chord[interval] = 1;
@@ -68,7 +71,80 @@ public:
 
     void updateChord() { //populate inversions w top down inversions of given intervals
 
-        //we wont clear inversions. we'll overwrite what we need and don't look past that. 
+        DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
+
+
+        int row = 0;
+        for (int i = 0; i < 12; i++) { //look for cts as 1s
+            
+            if (chord[i] == 0) {
+                continue;
+            }
+
+            else {
+
+                DBG("found a 1 at " << i);
+                                 
+                int inversionIndex = 0;
+                int j = i-1;
+                int distance = -1;
+
+                while (inversionIndex < numCTs) { //come back to this
+
+                    if (j < 0) { j = 11; }
+
+                    if (chord[j] == 1) { //found another ct to get distance
+                        inversions[row][inversionIndex] = distance;
+                        inversionIndex += 1;
+                        DBG("found another 1 at " << j << ". distance is " << distance << ". put it at " << row << " , " << inversionIndex);
+                    }
+                    
+                    j -= 1;
+                    distance -= 1;
+                    if (distance == -12) { distance = 0; }
+                
+                }
+                row += 1;
+                
+            }
+        }
+       
+
+    }
+
+
+/* 
+got rid of 
+int dist = j-i;
+if (dist > 0) { //if not below, put it below
+    dist -= 12;
+    dist %= 12;
+by counting down from 0
+
+
+
+     DBG(inversions[0][0] << ", " << inversions[0][1] << ", " << inversions[0][2]);
+        DBG(inversions[1][0] << ", " << inversions[1][1] << ", " << inversions[1][2]);
+        DBG(inversions[2][0] << ", " << inversions[2][1] << ", " << inversions[2][2]);
+        counter = 0;
+}*/
+
+
+
+
+
+
+
+};
+
+
+/*
+* 
+* 
+
+void updateChord() { //populate inversions w top down inversions of given intervals
+
+        //we wont clear inversions. we'll overwrite what we need and don't look past that.
 
         DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
         std::array<int, 12> rowCounters = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
@@ -84,7 +160,7 @@ public:
             if (chord[i%12] == 0) {
 
                 DBG("got a 0");
-                
+
                 for (int j = 0; j < lastRowStarted+1; j++) {  //incr each of the live counters
                     rowCounters[j] = rowCounters[j] + 1;
                     DBG("incremented counter " << j << " to " << rowCounters[j]);
@@ -120,59 +196,10 @@ public:
         }
 
         counter = 0;
-      
+
 
     }
 
 
 
-
-
-
-
-
-};
-
-
-/*
-
-void updateChord() { //populate inversions w top down inversions of given intervals
-        numCTs = 0;
-
-        //we wont clear inversions. we'll overwrite what we need and don't look past that.
-
-        //DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
-
-
-        for (int i = 0; i < chord.size(); i++) { //one inversion with each top note
-            if (chord[i] == 0) {
-                continue;
-            }
-            else {
-                numCTs += 1;                       //1 inversion for every true CT
-                std::array<int, 12>& inversion = inversions[numCTs-1];
-                //DBG("array number "<< numCTs - 1<<":");
-                int place = 0;
-                for (int j = 0; j < chord.size(); j++) {
-                    if (chord[j] == 0) {
-                        continue;
-                    }
-                    else {
-                        int dist = j - i;
-                        if (dist > 0) { //if not below, put it below
-                            dist -= 12;
-                            dist %= 12;
-                        }
-                        inversion[place] = dist;
-                        //DBG("index " << place << " gets " << dist);
-                        place += 1;
-
-                    }
-
-                }
-            }
-        }
-        counter = 0;
-
-    }
 */

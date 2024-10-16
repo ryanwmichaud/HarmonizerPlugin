@@ -104,7 +104,7 @@ public:
 
     }
 
-    */
+    
 
     void updateChord() { //populate inversions w top down inversions of given intervals
 
@@ -114,6 +114,7 @@ public:
         std::array<int, 12> rowCounters = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
         std::array<int, 12> numDistancesFound = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         int lastRowStarted = -1;
+        int lastRowEnded = -1;
 
 
         for (int i = 33; i >= 0; i--) { //step backwards looking for 1s
@@ -164,6 +165,50 @@ public:
 
 
     }
+    */
+
+    void updateChord() { //populate inversions w top down inversions of given intervals
+
+        DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
+
+
+        int row = 0;
+        for (int i = 0; i < 12; i++) { //look for cts as 1s
+
+            if (chord[i] == 0) {
+                continue;
+            }
+
+            else {
+
+                DBG("found a 1 at " << i);
+
+                int inversionIndex = 0;
+                int j = i - 1;
+                int distance = -1;
+
+                while (inversionIndex < numCTs) { //come back to this
+
+                    if (j < 0) { j = 11; }
+
+                    if (chord[j] == 1) { //found another ct to get distance
+                        inversions[row][inversionIndex] = distance;
+                        inversionIndex += 1;
+                        DBG("found another 1 at " << j << ". distance is " << distance << ". put it at " << row << " , " << inversionIndex);
+                    }
+
+                    j -= 1;
+                    distance -= 1;
+                    if (distance == -12) { distance = 0; }
+
+                }
+                row += 1;
+
+            }
+        }
+
+    }
+
 
     void process(juce::MidiBuffer& midiMessages) {      //pass in midi buffer by reference so we can change it in memory
 
