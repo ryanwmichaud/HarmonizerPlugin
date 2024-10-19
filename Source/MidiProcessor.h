@@ -27,7 +27,7 @@ public:
     std::array<int, 12> activeNoteNums = { -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1 };
 
     int counter = 0;        //for cycling through inversions
-    int numCTs;              //num chords - same as num chord tones/possible inversions
+    int numCTs = 1;              //num chords - same as num chord tones/possible inversions
     int lastOn;
 
     std::array<int, 12> distancesBetween = { 0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13 };
@@ -52,8 +52,6 @@ public:
 
 
     void removeChordTone(int interval) {
-        DBG("removing");
-
 
         if (chord[interval] == 1) {
             chord[interval] = 0;
@@ -63,8 +61,6 @@ public:
 
     }
     void addChordTone(int interval) {
-
-        DBG("adding");
 
         if (chord[interval] == 0) {
             chord[interval] = 1;
@@ -94,7 +90,7 @@ public:
     void updateChord() { //populate inversions w top down inversions of given intervals
 
         DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
-
+        DBG("numcts: " << numCTs);
 
         int i = 1;
         int currentDistance = 1;    //start here so we don't count a distance of 0. probably a cleaner way but this is efficient
@@ -116,7 +112,7 @@ public:
         }
         distancesBetween[distancesFound] = (13 - i); //calc distance from the last ct til we wrap at index 0. (index 0 will always be a 1)
 
-
+        DBG(distancesBetween[0] << " " << distancesBetween[1] << " " << distancesBetween[2] << " " << distancesBetween[3] << " " << distancesBetween[4]);
 
         //now, take running totals of these distances from each point saving at each step. 
 
