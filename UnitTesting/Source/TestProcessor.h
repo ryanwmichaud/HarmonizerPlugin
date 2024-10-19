@@ -10,18 +10,18 @@ public:
 
     std::array<int, 12> chord = { 1,0,0,0,0,0,0,0,0,0,0,0 };
     std::array<std::array<int, 12>, 12> inversions = { {
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
-        {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13}
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     } };
     
     int counter = 0;        //for cycling through inversions
@@ -76,13 +76,12 @@ public:
         int i = 1;      
         int currentDistance = 1;    //start here so we don't count a distance of 0. probably a cleaner way but this is efficient
         int distancesFound = 0;
-        const int numDistancesToFind = numCTs -1;  // last one from subtraction not iteration. 
+        const int numDistancesToFind = numCTs -1;  // we'll quit early and find the last distance from subtraction not iteration. 
 
 
-        while (distancesFound < numDistancesToFind) {  //get distances from each member to the next. can quit early and get the last one w subtraction. 
+        while (distancesFound < numDistancesToFind) {  //get distances from each member to the next. quit early and get the last one w subtraction. 
 
             if (chord[i] == 1) {
-                //DBG(" found a 1 at " << i << " with distance " << currentDistance << ". now distfound is " << distancesFound+1 << " of " << numDistancesToFind);
                 distancesBetween[distancesFound] = currentDistance;
                 currentDistance = 1;
                 distancesFound += 1;
@@ -92,22 +91,16 @@ public:
             }
             i += 1;
         }
-
-        DBG("ended at index " << i << ". placing " << 13-i << " at " << distancesFound);
-        distancesBetween[distancesFound] = (13 - i); //calc distance til to wrap at index 0. index 0 will always be a 1
-      
-        DBG(distancesBetween[0] << " " << distancesBetween[1] << " " << distancesBetween[2] << " " << distancesBetween[3] << " " << distancesBetween[4] << " " << distancesBetween[5]);
-
-        //[1 0 0 0 1 0 0 1 0 0 0 0]
-        //[4 3 5]
+        distancesBetween[distancesFound] = (13 - i); //calc distance from the last ct til we wrap at index 0. (index 0 will always be a 1)
 
 
-        for (int i = 0; i < numCTs; i++) { // for each starting point
-            DBG("i: " << i);
+
+        //now, take running totals of these distances from each point saving at each step. 
+
+        for (int i = 0; i < numCTs; i++) { //i is the row we write to and also the offset to the new starting point 
 
             int runningTotalRow = 0;
-            for (int j = distancesFound; j >= 1; j--) { // save running totals into inversions
-                DBG("j: " << j);
+            for (int j = distancesFound; j >= 1; j--) { // iterate backwards through dists, save running totals into inversions in the right place
                 runningTotalRow -= distancesBetween[(j+i)%numCTs];
                 inversions[i][j] = runningTotalRow;
             }

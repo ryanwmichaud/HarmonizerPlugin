@@ -45,11 +45,11 @@ public:
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[1], mp.numCTs);
-        expected = "[-4, 0, -9]";
+        expected = "[0, -9, -4]";
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[2], mp.numCTs);
-        expected = "[-7, -3, 0]";
+        expected = "[0, -7, -3]";
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
 
@@ -64,22 +64,26 @@ public:
 
         actual = inversionToString(mp.inversions[0], mp.numCTs);
         expected = "[0, -10, -8, -5, -1]";
+
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[1], mp.numCTs);
-        expected = "[-2, 0, -10, -7, -3]";
+        expected = "[0, -10, -7, -3, -2]";
+
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[2], mp.numCTs);
-        expected = "[-4, -2, 0, -9, -5]";
+        expected = "[0, -9, -5, -4, -2]";
+
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[3], mp.numCTs);
-        expected = "[-7, -5, -3, 0, -8]";
+        expected = "[0, -8, -7, -5, -3]";
+
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[4], mp.numCTs);
-        expected = "[-11, -9, -7, -4, 0]";
+        expected = "[0, -11, -9, -7, -4]";
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
 
@@ -100,7 +104,7 @@ public:
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         actual = inversionToString(mp.inversions[1], mp.numCTs);
-        expected = "[-7, 0]";
+        expected = "[0, -7]";
         expect(expected == actual, "Expected: " + juce::String(expected) + ", Actual: " + juce::String(actual));
 
         
