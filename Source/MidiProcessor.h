@@ -15,6 +15,9 @@ public:
     int numCTs;              //num chords - same as num chord tones/possible inversions
     int lastOn;
 
+    std::array<int, 11> distancesBetween;
+    
+
     bool cycle = true;
 
 
@@ -24,7 +27,7 @@ public:
     MidiProcessor() {
         //chord = { 0, 2, 4, 7, 11 }; //default to Maj9 on instatiation
         //chord = {1,0,1,0,1,0,0,1,0,0,0,1}; //default to Maj9 on instatiation
-        updateChord();
+        updateChord(); //populate inversion matrix
    
     }
 
@@ -166,7 +169,7 @@ public:
 
     }
 
-    */
+  
 
     //v3
 
@@ -211,7 +214,24 @@ public:
         }
 
     }
-    
+      */
+
+    void updateChord() {
+
+        int count = 0;
+        for (int i = 0; i < 12; i++) {
+            if (chord[i] == 1) {
+                distancesBetween[i] = count;
+                count = 0;
+            }
+            else {
+                count += 1;
+            }
+
+        }
+        DBG(distancesBetween);
+
+    }
 
 
 

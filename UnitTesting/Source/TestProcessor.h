@@ -9,7 +9,7 @@ class MidiProcessor {
 public:
 
     std::array<int, 12> chord = { 1,0,0,0,0,0,0,0,0,0,0,0 };
-    std::array<std::array<int, 12>, 12> inversions; /*= { {
+    std::array<std::array<int, 12>, 12> inversions = { {
         {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
         {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
         {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
@@ -23,20 +23,20 @@ public:
         {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13},
         {0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13}
     } };
-    */
+    
     int counter = 0;        //for cycling through inversions
     int numCTs = 1;              //num chords - same as num chord tones/possible inversions
     int lastOn;
 
+    std::array<int, 12> distancesBetween = { 0, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13 };
 
 
 
 
 
-    MidiProcessor() {
-        //chord = { 0, 2, 4, 7, 11 }; //default to Maj9 on instatiation
-        //chord = {1,0,1,0,1,0,0,1,0,0,0,1}; //default to Maj9 on instatiation
-        updateChord();
+
+    MidiProcessor() {       
+        updateChord();  //populate inversion matrix
     }
 
 
@@ -68,49 +68,59 @@ public:
         }
     }
 
-
     void updateChord() { //populate inversions w top down inversions of given intervals
-
+        
         DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
 
 
-        int row = 0;
-        for (int i = 0; i < 12; i++) { //look for cts as 1s
-            
-            if (chord[i] == 0) {
-                continue;
+        int i = 1;      
+        int currentDistance = 1;    //start here so we don't count a distance of 0. probably a cleaner way but this is efficient
+        int distancesFound = 0;
+        const int numDistancesToFind = numCTs -1;  // last one from subtraction not iteration. 
+
+
+        while (distancesFound < numDistancesToFind) {  //get distances from each member to the next. can quit early and get the last one w subtraction. 
+
+            if (chord[i] == 1) {
+                //DBG(" found a 1 at " << i << " with distance " << currentDistance << ". now distfound is " << distancesFound+1 << " of " << numDistancesToFind);
+                distancesBetween[distancesFound] = currentDistance;
+                currentDistance = 1;
+                distancesFound += 1;
             }
-
             else {
+                currentDistance += 1;
+            }
+            i += 1;
+        }
 
-                DBG("found a 1 at " << i);
-                                 
-                int inversionIndex = 0;
-                int j = i-1;
-                int distance = -1;
+        DBG("ended at index " << i << ". placing " << 13-i << " at " << distancesFound);
+        distancesBetween[distancesFound] = (13 - i); //calc distance til to wrap at index 0. index 0 will always be a 1
+      
+        DBG(distancesBetween[0] << " " << distancesBetween[1] << " " << distancesBetween[2] << " " << distancesBetween[3] << " " << distancesBetween[4] << " " << distancesBetween[5]);
 
-                while (inversionIndex < numCTs) { //come back to this
+        //[1 0 0 0 1 0 0 1 0 0 0 0]
+        //[4 3 5]
 
-                    if (j < 0) { j = 11; }
 
-                    if (chord[j] == 1) { //found another ct to get distance
-                        inversions[row][inversionIndex] = distance;
-                        inversionIndex += 1;
-                        DBG("found another 1 at " << j << ". distance is " << distance << ". put it at " << row << " , " << inversionIndex);
-                    }
-                    
-                    j -= 1;
-                    distance -= 1;
-                    if (distance == -12) { distance = 0; }
-                
-                }
-                row += 1;
-                
+        for (int i = 0; i < numCTs; i++) { // for each starting point
+            DBG("i: " << i);
+
+            int runningTotalRow = 0;
+            for (int j = distancesFound; j >= 1; j--) { // save running totals into inversions
+                DBG("j: " << j);
+                runningTotalRow -= distancesBetween[(j+i)%numCTs];
+                inversions[i][j] = runningTotalRow;
             }
         }
-       
+
+        DBG(inversions[0][0] << inversions[0][1] << inversions[0][2]);
+        DBG(inversions[1][0] << inversions[1][1] << inversions[1][2]);
+        DBG(inversions[2][0] << inversions[2][1] << inversions[2][2]);
+
 
     }
+
+ 
 
 
 /* 
@@ -201,5 +211,48 @@ void updateChord() { //populate inversions w top down inversions of given interv
     }
 
 
+
+       void updateChord() { //populate inversions w top down inversions of given intervals
+
+        DBG("new: " << chord[0] << chord[1] << chord[2] << chord[3] << chord[4] << chord[5] << chord[6] << chord[7] << chord[8] << chord[9] << chord[10] << chord[11]);
+
+
+        int row = 0;
+        for (int i = 0; i < 12; i++) { //look for cts as 1s
+
+            if (chord[i] == 0) {
+                continue;
+            }
+
+            else {
+
+                DBG("found a 1 at " << i);
+
+                int inversionIndex = 0;
+                int j = i-1;
+                int distance = -1;
+
+                while (inversionIndex < numCTs) { //come back to this
+
+                    if (j < 0) { j = 11; }
+
+                    if (chord[j] == 1) { //found another ct to get distance
+                        inversions[row][inversionIndex] = distance;
+                        inversionIndex += 1;
+                        DBG("found another 1 at " << j << ". distance is " << distance << ". put it at " << row << " , " << inversionIndex);
+                    }
+
+                    j -= 1;
+                    distance -= 1;
+                    if (distance == -12) { distance = 0; }
+
+                }
+                row += 1;
+
+            }
+        }
+
+
+    }
 
 */
